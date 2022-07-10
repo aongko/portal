@@ -47,6 +47,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+
+    links Link[]
 }
 
 model VerificationToken {
@@ -62,6 +64,9 @@ model Link {
     slug      String   @unique
     url       String   @db.VarChar(2000)
     createdAt DateTime @default(now())
+
+    ownerId   String
+    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
     @@unique([createdAt(sort: Desc), slug])
 }

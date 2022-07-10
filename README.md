@@ -33,11 +33,13 @@ pscale deploy-request deploy portal 1
 - [pnpm](https://pnpm.io/)
 - [pscale](https://planetscale.com/features/cli)
 - [vscode](https://code.visualstudio.com/)
-  - eslint
-  - prettier (format on save, format on paste)
-  - typescript (use workspace version)
+  - ESLint
+  - Prettier - Code formatter (format on save, format on paste)
+  - Typescript (use workspace version)
+  - Tailwind CSS IntelliSense
 
 Or copy the setting below for VSCode workspace settings.json
+
 ```json
 {
   "editor.tabSize": 2,
