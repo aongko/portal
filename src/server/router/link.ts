@@ -1,8 +1,8 @@
-import { createRouter } from "./context";
-import { z } from "zod";
+import { createRouter } from './context'
+import { z } from 'zod'
 
 export const linkRouter = createRouter()
-  .query("hello", {
+  .query('hello', {
     input: z
       .object({
         text: z.string().nullish(),
@@ -10,12 +10,12 @@ export const linkRouter = createRouter()
       .nullish(),
     resolve({ input }) {
       return {
-        greeting: `Hello ${input?.text ?? "world"}`,
-      };
+        greeting: `Hello ${input?.text ?? 'world'}`,
+      }
     },
   })
-  .query("getAll", {
+  .query('getAll', {
     async resolve({ ctx }) {
-      return await ctx.prisma.link.findMany();
+      return await ctx.prisma.link.findMany()
     },
-  });
+  })
