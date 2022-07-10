@@ -27,3 +27,23 @@ To deploy the changes to `main`:
 pscale deploy-request create portal <branch-name>
 pscale deploy-request deploy portal 1
 ```
+
+## Development Setup
+
+- [pnpm](https://pnpm.io/)
+- [pscale](https://planetscale.com/features/cli)
+- [vscode](https://code.visualstudio.com/)
+  - eslint
+  - prettier (format on save, format on paste)
+  - typescript (use workspace version)
+
+Or copy the setting below for VSCode workspace settings.json
+```json
+{
+  "editor.tabSize": 2,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
+```
