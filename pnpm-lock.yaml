@@ -8,6 +8,7 @@ specifiers:
   '@trpc/react': ^9.25.3
   '@trpc/server': ^9.25.3
   '@types/node': 18.0.0
+  '@types/nodemailer': ^6.4.4
   '@types/react': 18.0.14
   '@types/react-dom': 18.0.5
   autoprefixer: ^10.4.7
@@ -15,6 +16,7 @@ specifiers:
   eslint-config-next: 12.1.6
   next: 12.2.0
   next-auth: ^4.9.0
+  nodemailer: ^6.7.7
   postcss: ^8.4.14
   prettier: ^2.7.1
   prisma: ^4.0.0
@@ -34,7 +36,8 @@ dependencies:
   '@trpc/react': 9.25.3_ms3at4dqhndwrpx5xroirjehyy
   '@trpc/server': 9.25.3
   next: 12.2.0_biqbaboplfbrettd7655fr4n2y
-  next-auth: 4.9.0_biqbaboplfbrettd7655fr4n2y
+  next-auth: 4.9.0_mnimnj2pdeccz5uivmdmoly3tq
+  nodemailer: 6.7.7
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
@@ -43,6 +46,7 @@ dependencies:
 
 devDependencies:
   '@types/node': 18.0.0
+  '@types/nodemailer': 6.4.4
   '@types/react': 18.0.14
   '@types/react-dom': 18.0.5
   autoprefixer: 10.4.7_postcss@8.4.14
@@ -109,7 +113,7 @@ packages:
       next-auth: ^4.0.1
     dependencies:
       '@prisma/client': 4.0.0_prisma@4.0.0
-      next-auth: 4.9.0_biqbaboplfbrettd7655fr4n2y
+      next-auth: 4.9.0_mnimnj2pdeccz5uivmdmoly3tq
     dev: false
 
   /@next/env/12.2.0:
@@ -339,6 +343,12 @@ packages:
 
   /@types/node/18.0.0:
     resolution: {integrity: sha512-cHlGmko4gWLVI27cGJntjs/Sj8th9aYwplmZFwmmgYQQvL5NUsgVJG7OddLvNfLqYS31KFN0s3qlaD9qCaxACA==}
+    dev: true
+
+  /@types/nodemailer/6.4.4:
+    resolution: {integrity: sha512-Ksw4t7iliXeYGvIQcSIgWQ5BLuC/mljIEbjf615svhZL10PE9t+ei8O9gDaD3FPCasUJn9KTLwz2JFJyiiyuqw==}
+    dependencies:
+      '@types/node': 18.0.0
     dev: true
 
   /@types/prop-types/15.7.5:
@@ -1639,7 +1649,7 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.9.0_biqbaboplfbrettd7655fr4n2y:
+  /next-auth/4.9.0_mnimnj2pdeccz5uivmdmoly3tq:
     resolution: {integrity: sha512-/4S5dFeyNg2nXlD7g/Sh5A4WZWnUMDpEf8x/x+gzmAf5cAY2SjDM6sLk9u4XRmsndsxQpIMWDw03sUTAD+Yzog==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
     peerDependencies:
@@ -1654,6 +1664,7 @@ packages:
       '@panva/hkdf': 1.0.2
       cookie: 0.4.2
       jose: 4.8.3
+      nodemailer: 6.7.7
       oauth: 0.9.15
       openid-client: 5.1.8
       preact: 10.9.0
@@ -1710,6 +1721,11 @@ packages:
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
     dev: true
+
+  /nodemailer/6.7.7:
+    resolution: {integrity: sha512-pOLC/s+2I1EXuSqO5Wa34i3kXZG3gugDssH+ZNCevHad65tc8vQlCQpOLaUjopvkRQKm2Cki2aME7fEOPRy3bA==}
+    engines: {node: '>=6.0.0'}
+    dev: false
 
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}

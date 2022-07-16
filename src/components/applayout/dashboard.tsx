@@ -1,5 +1,6 @@
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import React from 'react'
 import Meta from './meta'
 
 type Props = {
@@ -8,17 +9,8 @@ type Props = {
   children: React.ReactNode
 }
 
-const DashboardLayout = (props: Props) => {
-  const router = useRouter()
-  const { data: session, status } = useSession({
-    required: true,
-    // onUnauthenticated: () => router.push('/'),
-    onUnauthenticated: async () => {
-      console.log('status:', status)
-      console.log('user:', session?.user)
-      await router.push('/signin')
-    },
-  })
+const DashboardLayout: React.FC<Props> = (props) => {
+  const { data: session } = useSession()
 
   return (
     <>
@@ -45,10 +37,7 @@ const DashboardLayout = (props: Props) => {
           </div>
         </div>
 
-        <div className="mt-2 px-2">
-          <p>Status: {status}</p>
-          {props.children}
-        </div>
+        <div className="mt-2 px-2">{props.children}</div>
       </div>
     </>
   )

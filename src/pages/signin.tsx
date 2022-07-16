@@ -1,10 +1,10 @@
 import { GetServerSidePropsContext, NextPage } from 'next'
-import { unstable_getServerSession } from 'next-auth'
-import { getSession, signIn } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
-import { authOptions } from './api/auth/[...nextauth]'
+import { getSession } from '../server/common/get-server-session'
 
 const SignInPage: NextPage = () => {
   const router = useRouter()
@@ -31,9 +31,9 @@ const SignInPage: NextPage = () => {
       <div className="flex flex-col items-center">
         <h1 className="text-3xl font-bold">Sign in</h1>
 
-        <div className="flex flex-col space-y-4 mt-4 w-full">
+        <div className="flex flex-col gap-4 mt-4 w-full">
           <button
-            className="px-6 py-2 flex items-center text-left cursor-pointer border-2 space-x-2"
+            className="px-6 py-2 flex items-center text-left cursor-pointer border-2 gap-2"
             onClick={() => signIn('github')}
           >
             <Image
@@ -45,7 +45,7 @@ const SignInPage: NextPage = () => {
             <span className="font-semibold">Sign in with Github</span>
           </button>
           <button
-            className="px-6 py-2 flex items-center text-left cursor-pointer border-2 space-x-2"
+            className="px-6 py-2 flex items-center text-left cursor-pointer border-2 gap-2"
             onClick={() => {
               alert('not available')
             }}
@@ -60,58 +60,65 @@ const SignInPage: NextPage = () => {
           </button>
         </div>
 
-        <div className="flex flex-col space-y-2 mt-4 pt-2 w-full items-center border-t-2 border-gray-300">
+        <div className="flex flex-col mt-4 pt-2 w-full items-center border-t-2 border-gray-300">
           <h2>
             <span className="font-semibold text-gray-500">Or</span>
           </h2>
-
-          {error && (
-            <div className="flex flex-col space-y-4 mt-4 w-full">
-              <div className="text-red-500">{error}</div>
-            </div>
-          )}
-
-          <div className="flex flex-col space-y-1 w-full">
-            <label htmlFor="email" className="text-sm font-semibold">
-              Email
-            </label>
-            <input
-              ref={emailRef}
-              type="email"
-              name="email"
-              className="px-2 py-1 border-2 border-gray-300"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-
-          <div className="flex flex-col space-y-1 w-full">
-            <label htmlFor="password" className="text-sm font-semibold">
-              Password
-            </label>
-            <input
-              ref={passwordRef}
-              type="password"
-              name="password"
-              className="px-2 py-1 border-2 border-gray-300"
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="px-4 py-2 w-full cursor-pointer border-2 border-gray-300 hover:border-gray-800"
-            onClick={() => handleSignin()}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleSignin()
+            }}
+            className="w-full flex flex-col gap-2"
           >
-            <span className="font-semibold">Sign in</span>
-          </button>
+            {error && (
+              <div className="flex flex-col gap-4 mt-4 w-full">
+                <div className="text-red-500">{error}</div>
+              </div>
+            )}
+
+            <div className="flex flex-col gap-1 w-full">
+              <label htmlFor="email" className="text-sm font-semibold">
+                Email
+              </label>
+              <input
+                ref={emailRef}
+                type="email"
+                name="email"
+                className="px-2 py-1 border-2 border-gray-300"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div className="flex flex-col gap-1 w-full">
+              <label htmlFor="password" className="text-sm font-semibold">
+                Password
+              </label>
+              <input
+                ref={passwordRef}
+                type="password"
+                name="password"
+                className="px-2 py-1 border-2 border-gray-300"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="px-4 py-2 w-full cursor-pointer border-2 border-gray-300 hover:border-gray-800"
+              onClick={() => handleSignin()}
+            >
+              <span className="font-semibold">Sign in</span>
+            </button>
+          </form>
 
           <p className="text-sm text-gray-600">
             {"Don't have an account? "}
-            <a href="/signup" className="text-blue-500 hover:text-blue-700">
-              Sign up
-            </a>
+            <Link href="/signup">
+              <a className="text-blue-500 hover:text-blue-700">Sign up</a>
+            </Link>
           </p>
 
           <p className="text-sm text-gray-600">
@@ -133,11 +140,7 @@ const SignInPage: NextPage = () => {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions,
-  )
+  const session = await getSession(context)
 
   if (session) {
     console.log('signin - getServerSideProps - session', session)

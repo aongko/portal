@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Meta from '../components/applayout/meta'
 
@@ -12,10 +13,6 @@ const Home: NextPage = () => {
       console.log('index - unauthenticated')
     },
   })
-
-  const handleGetStarted = async () => {
-    await router.push('/dashboard')
-  }
 
   return (
     <>
@@ -34,13 +31,14 @@ const Home: NextPage = () => {
           <p>/ao -&gt; https://andrew.ongko.dev</p>
 
           <div className="inline-flex space-x-2 mt-4">
-            <button
-              type="button"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={handleGetStarted}
-            >
-              Get Started
-            </button>
+            <Link href="/signin">
+              <button
+                type="button"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Get Started
+              </button>
+            </Link>
 
             <button
               type="button"
