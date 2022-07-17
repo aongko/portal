@@ -144,20 +144,18 @@ const DashboardHome = () => {
               {links.data.map((link) => (
                 <div
                   key={link.id}
-                  className="flex items-center justify-between"
+                  className="flex max-w-full items-center justify-between"
                 >
-                  <Link href={link.url}>
-                    <a className="text-blue-500">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">/{link.slug}</span>
-                        <span className="text-gray-500">{link.url}</span>
-                      </div>
+                  <Link href={link.slug}>
+                    <a className="flex w-64 flex-auto flex-col text-blue-500">
+                      <span className="font-semibold">/{link.slug}</span>
+                      <span className="truncate text-gray-500">{link.url}</span>
                     </a>
                   </Link>
 
                   <button
                     onClick={() => deleteLink.mutate({ id: link.id })}
-                    className="bg-red-600 px-4 py-2 text-white"
+                    className="flex-none bg-red-600 px-4 py-2 text-white"
                   >
                     Delete
                   </button>

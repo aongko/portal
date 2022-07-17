@@ -17,7 +17,7 @@ const DashboardLayout: React.FC<Props> = (props) => {
     <>
       <Meta title={`Portal - ${props.title}`} description={props.description} />
 
-      <div className="mx-auto flex min-h-screen flex-col border-2 border-slate-200 sm:max-w-sm">
+      <div className="mx-auto flex min-h-screen min-w-fit max-w-sm flex-col border-2 border-slate-200">
         <div className="border-b-2 border-slate-200">
           <div className="min-w-full py-2 px-4">
             <div className="flex items-center">
