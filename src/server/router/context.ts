@@ -2,6 +2,7 @@
 import * as trpc from '@trpc/server'
 import * as trpcNext from '@trpc/server/adapters/next'
 import { unstable_getServerSession as getServerSession } from 'next-auth'
+import { ZodError } from 'zod'
 
 import { authOptions as nextAuthOptions } from '../../pages/api/auth/[...nextauth]'
 import { prisma } from '../db/client'
@@ -25,4 +26,16 @@ export const createContext = async (
 
 type Context = trpc.inferAsyncReturnType<typeof createContext>
 
-export const createRouter = () => trpc.router<Context>()
+export const createRouter = () =>
+  trpc.router<Context>().formatError(({ shape, error }) => {
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError:
+          error.code === 'BAD_REQUEST' && error.cause instanceof ZodError
+            ? error.cause.flatten()
+            : null,
+      },
+    }
+  })

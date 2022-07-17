@@ -1,4 +1,5 @@
 import { signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Meta from './meta'
@@ -16,18 +17,21 @@ const DashboardLayout: React.FC<Props> = (props) => {
     <>
       <Meta title={`Portal - ${props.title}`} description={props.description} />
 
-      <div className="flex flex-col min-h-screen mx-auto sm:max-w-sm border-2 border-slate-200">
+      <div className="mx-auto flex min-h-screen flex-col border-2 border-slate-200 sm:max-w-sm">
         <div className="border-b-2 border-slate-200">
           <div className="min-w-full py-2 px-4">
-            <h1 className="text-xl font-semibold">{props.title}</h1>
-
+            <div className="flex items-center">
+              <h1 className="text-xl font-semibold">
+                <Link href="/">Portal</Link> » {props.title}
+              </h1>
+            </div>
             {session?.user && (
-              <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-row items-center justify-between">
                 {session.user.email}
 
                 <button
                   type="button"
-                  className=" px-4 py-1 border-2 border-gray-300 hover:border-gray-800"
+                  className=" border-2 border-gray-300 px-4 py-1 hover:border-gray-800"
                   onClick={() => signOut({ callbackUrl: '/' })}
                 >
                   Sign out

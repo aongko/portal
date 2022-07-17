@@ -1,12 +1,9 @@
 import type { NextPage } from 'next'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import Meta from '../components/applayout/meta'
 
 const Home: NextPage = () => {
-  const router = useRouter()
-
   const { data: session } = useSession({
     required: false,
     onUnauthenticated: () => {
@@ -24,7 +21,7 @@ const Home: NextPage = () => {
       <div className="mx-auto flex min-h-screen flex-col justify-center sm:max-w-sm">
         <div className="flex flex-col items-center rounded border-2 border-gray-800 px-8 py-12">
           <h1 className="text-center text-3xl font-bold">
-            Portal <span className="text-blue-500">.</span>
+            Portal<span className="text-blue-500">.</span>
           </h1>
 
           <p>Generate Short URL</p>
@@ -36,7 +33,7 @@ const Home: NextPage = () => {
                 type="button"
                 className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
               >
-                Get Started
+                {session?.user ? 'Dashboard' : 'Get Started'}
               </button>
             </Link>
 
@@ -47,16 +44,6 @@ const Home: NextPage = () => {
             >
               Donate
             </button>
-
-            {session?.user && (
-              <button
-                type="button"
-                className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
-                onClick={() => signOut()}
-              >
-                Sign out
-              </button>
-            )}
           </div>
         </div>
       </div>

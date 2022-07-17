@@ -1,5 +1,5 @@
 import { createRouter } from './context'
-import { z } from 'zod'
+import { z, ZodError } from 'zod'
 import { TRPCError } from '@trpc/server'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 
@@ -23,8 +23,11 @@ export const linkRouter = createRouter()
   })
   .mutation('create', {
     input: z.object({
-      url: z.string(),
-      slug: z.string(),
+      url: z.string().url('Must be a valid URL'),
+      slug: z
+        .string()
+        .min(2, 'Slug must be at least 2 characters')
+        .max(20, 'Slug must be at most 20 characters'),
     }),
     async resolve({ ctx, input }) {
       if (!ctx.session?.user?.id) {

@@ -111,8 +111,6 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     jwt({ token, account }) {
-      console.log('token:', token)
-      console.log('account:', account)
       // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.accessToken = account.access_token
@@ -120,13 +118,10 @@ export const authOptions: NextAuthOptions = {
       return token
     },
     session({ session, user, token }) {
-      console.log('user.id:', user?.id)
-      console.log('token.sub:', token?.sub)
       if (session.user) {
         if (user?.id) session.user.id = user.id
         if (token?.sub) session.user.id = token.sub
       }
-      console.log('session:', session)
       return session
     },
   },

@@ -9,24 +9,43 @@ type FormCreateProps = {
 
 const FormCreate = (props: FormCreateProps) => {
   const [url, setUrl] = useState('')
-  const [shortUrl, setShortUrl] = useState('')
+  const [slug, setSlug] = useState('')
   const [error, setError] = useState('')
+  const [errorUrl, setErrorUrl] = useState('')
+  const [errorSlug, setErrorSlug] = useState('')
   const [loading, setLoading] = useState(false)
 
   const create = trpc.useMutation('link.create', {
     onMutate: async () => {
       setLoading(true)
       setError('')
+      setErrorUrl('')
+      setErrorSlug('')
     },
     onSuccess() {
       setUrl('')
-      setShortUrl('')
+      setSlug('')
       setLoading(false)
 
       props.onCreate()
     },
     onError(error) {
-      setError(error.message)
+      console.log('message:', error.message)
+      console.log('data:', error.data?.zodError)
+      console.log('shape:', error.shape)
+      const errors = error.data?.zodError?.fieldErrors
+
+      if (!errors) {
+        setError(error.message)
+      } else {
+        if (errors.url) {
+          setErrorUrl(errors.url.join('\n'))
+        }
+        if (errors.slug) {
+          setErrorSlug(errors.slug.join('\n'))
+        }
+      }
+
       setLoading(false)
     },
   })
@@ -34,7 +53,7 @@ const FormCreate = (props: FormCreateProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    create.mutate({ url, slug: shortUrl })
+    create.mutate({ url, slug })
   }
 
   return (
@@ -55,22 +74,24 @@ const FormCreate = (props: FormCreateProps) => {
             placeholder="Enter your URL"
             required
           />
+          {errorUrl && <div className="text-red-500">{errorUrl}</div>}
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="shortUrl" className="font-semibold">
-            Short URL
+          <label htmlFor="slug" className="font-semibold">
+            Slug
           </label>
           <input
             type="text"
-            name="shortUrl"
-            id="shortUrl"
-            value={shortUrl}
-            onChange={(e) => setShortUrl(e.target.value)}
+            name="slug"
+            id="slug"
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
             className="border-2 border-gray-300 px-2 py-1"
-            placeholder="Enter short URL"
+            placeholder="Enter slug"
             required
           />
+          {errorSlug && <div className="text-red-500">{errorSlug}</div>}
         </div>
 
         <button
@@ -78,7 +99,7 @@ const FormCreate = (props: FormCreateProps) => {
           className="w-full cursor-pointer border-2 border-gray-300 px-4 py-2 hover:border-gray-800"
           disabled={loading}
         >
-          <span className="font-semibold">Shorten</span>
+          <span className="font-semibold">Save</span>
         </button>
 
         {error && (
@@ -109,10 +130,7 @@ const DashboardHome = () => {
   })
 
   return (
-    <DashboardLayout
-      title="Portal - Dashboard"
-      description="Manage your short URLs"
-    >
+    <DashboardLayout title="Dashboard" description="Manage your short URLs">
       <div className="flex flex-col gap-4">
         <FormCreate onCreate={() => links.refetch()} />
 
