@@ -21,20 +21,20 @@ const Home: NextPage = () => {
         description="Generate and manage short URLs easily"
       />
 
-      <div className="flex flex-col min-h-screen justify-center mx-auto sm:max-w-sm">
-        <div className="flex flex-col items-center rounded border-gray-800 border-2 px-8 py-12">
-          <h1 className="text-3xl font-bold text-center">
+      <div className="mx-auto flex min-h-screen flex-col justify-center sm:max-w-sm">
+        <div className="flex flex-col items-center rounded border-2 border-gray-800 px-8 py-12">
+          <h1 className="text-center text-3xl font-bold">
             Portal <span className="text-blue-500">.</span>
           </h1>
 
           <p>Generate Short URL</p>
           <p>/ao -&gt; https://andrew.ongko.dev</p>
 
-          <div className="inline-flex space-x-2 mt-4">
+          <div className="mt-4 inline-flex space-x-2">
             <Link href="/signin">
               <button
                 type="button"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
               >
                 Get Started
               </button>
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             <button
               type="button"
               disabled
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-700 focus:outline-none"
             >
               Donate
             </button>
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
             {session?.user && (
               <button
                 type="button"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
                 onClick={() => signOut()}
               >
                 Sign out

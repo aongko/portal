@@ -40,7 +40,7 @@ const FormCreate = (props: FormCreateProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col gap-2">
-        <h2 className="font-semibold text-2xl">Create a link</h2>
+        <h2 className="text-2xl font-semibold">Create a link</h2>
         <div className="flex flex-col">
           <label htmlFor="url" className="font-semibold">
             URL
@@ -75,14 +75,14 @@ const FormCreate = (props: FormCreateProps) => {
 
         <button
           type="submit"
-          className="px-4 py-2 w-full cursor-pointer border-2 border-gray-300 hover:border-gray-800"
+          className="w-full cursor-pointer border-2 border-gray-300 px-4 py-2 hover:border-gray-800"
           disabled={loading}
         >
           <span className="font-semibold">Shorten</span>
         </button>
 
         {error && (
-          <div className="flex flex-col gap-4 mt-4 w-full">
+          <div className="mt-4 flex w-full flex-col gap-4">
             <div className="text-red-500">{error}</div>
           </div>
         )}
@@ -118,7 +118,7 @@ const DashboardHome = () => {
 
         <div className="flex flex-col gap-2">
           <h2>
-            <span className="font-semibold text-2xl">Your links</span>
+            <span className="text-2xl font-semibold">Your links</span>
           </h2>
 
           {links.data && links.data.length > 0 ? (
@@ -126,7 +126,7 @@ const DashboardHome = () => {
               {links.data.map((link) => (
                 <div
                   key={link.id}
-                  className="flex justify-between items-center"
+                  className="flex items-center justify-between"
                 >
                   <Link href={link.url}>
                     <a className="text-blue-500">
@@ -139,7 +139,7 @@ const DashboardHome = () => {
 
                   <button
                     onClick={() => deleteLink.mutate({ id: link.id })}
-                    className="px-4 py-2 bg-red-600 text-white"
+                    className="bg-red-600 px-4 py-2 text-white"
                   >
                     Delete
                   </button>

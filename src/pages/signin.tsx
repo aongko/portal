@@ -27,13 +27,13 @@ const SignInPage: NextPage = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen justify-center mx-auto my-auto w-64">
+    <div className="mx-auto my-auto flex min-h-screen w-64 flex-col justify-center">
       <div className="flex flex-col items-center">
         <h1 className="text-3xl font-bold">Sign in</h1>
 
-        <div className="flex flex-col gap-4 mt-4 w-full">
+        <div className="mt-4 flex w-full flex-col gap-4">
           <button
-            className="px-6 py-2 flex items-center text-left cursor-pointer border-2 gap-2"
+            className="flex cursor-pointer items-center gap-2 border-2 px-6 py-2 text-left"
             onClick={() => signIn('github')}
           >
             <Image
@@ -45,7 +45,7 @@ const SignInPage: NextPage = () => {
             <span className="font-semibold">Sign in with Github</span>
           </button>
           <button
-            className="px-6 py-2 flex items-center text-left cursor-pointer border-2 gap-2"
+            className="flex cursor-pointer items-center gap-2 border-2 px-6 py-2 text-left"
             onClick={() => {
               alert('not available')
             }}
@@ -60,7 +60,7 @@ const SignInPage: NextPage = () => {
           </button>
         </div>
 
-        <div className="flex flex-col mt-4 pt-2 w-full items-center border-t-2 border-gray-300">
+        <div className="mt-4 flex w-full flex-col items-center border-t-2 border-gray-300 pt-2">
           <h2>
             <span className="font-semibold text-gray-500">Or</span>
           </h2>
@@ -69,15 +69,15 @@ const SignInPage: NextPage = () => {
               e.preventDefault()
               handleSignin()
             }}
-            className="w-full flex flex-col gap-2"
+            className="flex w-full flex-col gap-2"
           >
             {error && (
-              <div className="flex flex-col gap-4 mt-4 w-full">
+              <div className="mt-4 flex w-full flex-col gap-4">
                 <div className="text-red-500">{error}</div>
               </div>
             )}
 
-            <div className="flex flex-col gap-1 w-full">
+            <div className="flex w-full flex-col gap-1">
               <label htmlFor="email" className="text-sm font-semibold">
                 Email
               </label>
@@ -85,13 +85,13 @@ const SignInPage: NextPage = () => {
                 ref={emailRef}
                 type="email"
                 name="email"
-                className="px-2 py-1 border-2 border-gray-300"
+                className="border-2 border-gray-300 px-2 py-1"
                 placeholder="Enter your email"
                 required
               />
             </div>
 
-            <div className="flex flex-col gap-1 w-full">
+            <div className="flex w-full flex-col gap-1">
               <label htmlFor="password" className="text-sm font-semibold">
                 Password
               </label>
@@ -99,7 +99,7 @@ const SignInPage: NextPage = () => {
                 ref={passwordRef}
                 type="password"
                 name="password"
-                className="px-2 py-1 border-2 border-gray-300"
+                className="border-2 border-gray-300 px-2 py-1"
                 placeholder="Enter your password"
                 required
               />
@@ -107,7 +107,7 @@ const SignInPage: NextPage = () => {
 
             <button
               type="submit"
-              className="px-4 py-2 w-full cursor-pointer border-2 border-gray-300 hover:border-gray-800"
+              className="w-full cursor-pointer border-2 border-gray-300 px-4 py-2 hover:border-gray-800"
               onClick={() => handleSignin()}
             >
               <span className="font-semibold">Sign in</span>

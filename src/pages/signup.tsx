@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from 'next'
 import { unstable_getServerSession } from 'next-auth'
 import { signIn } from 'next-auth/react'
+import Link from 'next/link'
 import { useRef, useState } from 'react'
 import { trpc } from '../utils/trpc'
 import { authOptions } from './api/auth/[...nextauth]'
@@ -56,17 +57,17 @@ const SignUpPage = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen justify-center mx-auto my-auto w-64 space-y-2">
+    <div className="mx-auto my-auto flex min-h-screen w-64 flex-col justify-center space-y-2">
       <div className="flex flex-col items-center">
         <h1 className="text-3xl font-bold">Sign up</h1>
 
         {error && (
-          <div className="flex flex-col space-y-4 mt-4 w-full">
+          <div className="mt-4 flex w-full flex-col space-y-4">
             <div className="text-red-500">{error}</div>
           </div>
         )}
 
-        <div className="flex flex-col space-y-2 mt-4">
+        <div className="mt-4 flex flex-col space-y-2">
           <div className="flex flex-col">
             <label htmlFor="email" className="text-sm font-semibold">
               Email
@@ -75,7 +76,7 @@ const SignUpPage = () => {
               ref={emailRef}
               type="email"
               name="email"
-              className="p-2 border-2 border-gray-300"
+              className="border-2 border-gray-300 p-2"
               placeholder="Enter your email"
               required
             />
@@ -89,7 +90,7 @@ const SignUpPage = () => {
               ref={passwordRef}
               type="password"
               name="password"
-              className="p-2 border-2 border-gray-300"
+              className="border-2 border-gray-300 p-2"
               placeholder="Enter your password"
               required
             />
@@ -103,7 +104,7 @@ const SignUpPage = () => {
               ref={passwordConfirmRef}
               type="password"
               name="passwordConfirm"
-              className="p-2 border-2 border-gray-300"
+              className="border-2 border-gray-300 p-2"
               placeholder="Confirm your password"
               required
             />
@@ -111,7 +112,7 @@ const SignUpPage = () => {
 
           <button
             type="submit"
-            className="p-2 items-center cursor-pointer border-2"
+            className="cursor-pointer items-center border-2 p-2"
             onClick={() => handleSignup()}
             disabled={mutation.isLoading}
           >
@@ -121,9 +122,9 @@ const SignUpPage = () => {
 
         <p className="text-sm text-gray-600">
           {'Already have an account? '}
-          <a className="text-blue-500 hover:text-blue-700" href="/signin">
-            Sign in
-          </a>
+          <Link href="/signin">
+            <a className="text-blue-500 hover:text-blue-700">Sign in</a>
+          </Link>
         </p>
       </div>
     </div>
