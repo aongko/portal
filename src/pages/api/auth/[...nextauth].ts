@@ -6,57 +6,15 @@ import GithubProvider from 'next-auth/providers/github'
 import nodemailer from 'nodemailer'
 import { prisma } from '../../../server/db/client'
 import { hashPassword } from '../../../utils/hash'
+import { env } from '../../../env/server-env.mjs'
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: Number(process.env.EMAIL_SERVER_PORT),
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
-      from: process.env.EMAIL_FROM,
-      sendVerificationRequest: async ({
-        identifier: email,
-        url,
-        provider: { server, from },
-      }) => {
-        const { host } = new URL(url)
-
-        const testAccount = await nodemailer.createTestAccount()
-        const transport = nodemailer.createTransport({
-          host: 'smtp.ethereal.email',
-          port: 587,
-          secure: false,
-          auth: {
-            user: testAccount.user,
-            pass: testAccount.pass,
-          },
-        })
-
-        const info = await transport.sendMail({
-          from,
-          to: email,
-          subject: `Sign in to ${host}`,
-          text: `Please sign in to ${host} by clicking on the link below:
-
-          ${url}
-
-          If you did not request this, please ignore this email.`,
-        })
-
-        console.log('Message sent: %s', info.messageId)
-        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
-      },
+      clientId: env.GITHUB_ID,
+      clientSecret: env.GITHUB_SECRET,
     }),
     CredentialsProvider({
       id: 'credentials',
